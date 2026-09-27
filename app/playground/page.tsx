@@ -1,0 +1,36 @@
+import type { Metadata } from 'next';
+
+import { TimelineDemo } from '@/components/demos/timeline-demo';
+import { Container, Eyebrow } from '@/components/ui';
+
+export const metadata: Metadata = {
+  title: 'Playground',
+  description: 'Small interactive toys I build to think through a problem.',
+  alternates: { canonical: '/playground' },
+};
+
+export default function Playground() {
+  return (
+    <Container className="pt-12 pb-24 sm:pt-20">
+      <Eyebrow>Playground</Eyebrow>
+      <h1 className="mt-3 text-4xl font-bold tracking-[-0.03em] text-balance sm:text-5xl">
+        Small things I build to think a problem through
+      </h1>
+
+      <section aria-labelledby="timeline-toy" className="mt-14">
+        <h2 id="timeline-toy" className="text-2xl font-bold tracking-[-0.025em]">
+          Values that change over time
+        </h2>
+        <p className="mt-3 max-w-2xl leading-relaxed text-muted">
+          Many systems store a value that is defined differently over time, like a price or a formula. Each
+          version is valid for its own period, periods never overlap, and any time left uncovered is a gap.
+          Blackout windows sit on top and switch it off for a while, whatever is underneath. Pick an edge
+          case, then drag the edges.
+        </p>
+        <div className="mt-8">
+          <TimelineDemo />
+        </div>
+      </section>
+    </Container>
+  );
+}
