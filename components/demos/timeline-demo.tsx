@@ -6,9 +6,9 @@ import clsx from 'clsx';
 /*
  * A from-scratch toy of one dataset's timeline, with made-up data. Time runs
  * left to right from Start to Present. Formula periods never overlap: each is a
- * different formula for a different interval, so gaps are the only thing that
+ * different formula for a different interval, so uncovered time is the only thing that
  * can go wrong between them. Blackouts are independent time windows and may
- * cover any part of any formula period, or a gap.
+ * cover any part of any formula period, or uncovered time.
  */
 
 type Slice = { id: string; start: number; end: number | null; formula: string };
@@ -28,7 +28,7 @@ const FORMULA = {
 const scenarios: Record<string, Scenario> = {
   sketch: {
     title: 'Everything at once',
-    body: 'Three formulas with a gap between the older two. One blackout spans the boundary between the newer two, and another sits inside the gap.',
+    body: 'Three formulas with uncovered time between the older two. One blackout spans the boundary between the newer two, and another sits in the uncovered stretch.',
     slices: [
       { id: 's1', start: 0, end: 128, formula: FORMULA.a },
       { id: 's2', start: 152, end: 250, formula: FORMULA.b },
@@ -49,9 +49,9 @@ const scenarios: Record<string, Scenario> = {
     ],
     blackouts: [],
   },
-  gaps: {
-    title: 'Gaps, including a tiny one',
-    body: 'A one-day gap is less than a pixel at this scale, so it is drawn at a minimum size and still flagged. The newest formula also ends before Present, which leaves a gap at the top.',
+  uncovered: {
+    title: 'Uncovered time, including a tiny stretch',
+    body: 'One uncovered day is less than a pixel at this scale, so it is drawn at a minimum size and still flagged. The newest formula also ends before Present, which leaves the end uncovered.',
     slices: [
       { id: 's1', start: 0, end: 140, formula: FORMULA.a },
       { id: 's2', start: 141, end: 230, formula: FORMULA.b },
@@ -87,9 +87,9 @@ const scenarios: Record<string, Scenario> = {
     ],
     blackouts: [{ id: 'x1', start: 138, end: 208 }],
   },
-  inGap: {
-    title: 'Blackout inside a gap',
-    body: 'A blackout can sit where there is no formula at all. The gap is still flagged: a blackout is only a time window, so it does not give the gap a formula.',
+  inUncovered: {
+    title: 'Blackout over uncovered time',
+    body: 'A blackout can sit where there is no formula at all. That time is still flagged as uncovered: a blackout is only a time window, so it does not give it a formula.',
     slices: [
       { id: 's1', start: 0, end: 150, formula: FORMULA.a },
       { id: 's2', start: 200, end: null, formula: FORMULA.b },
@@ -122,35 +122,33 @@ const monthTicks = Array.from({ length: 12 }, (_, m) => {
   return { d, label: monthFmt.format(EPOCH + d * dayMs) };
 }).filter((t) => t.d > 20 && t.d < DAYS - 40); // leave room for the Start and Present labels
 
-type Gap = { start: number; end: number; after: number | null };
+type Uncovered = { start: number; end: number };
 
-function findGaps(slices: Slice[]): Gap[] {
-  const gaps: Gap[] = [];
+function findUncovered(slices: Slice[]): Uncovered[] {
+  const uncovered: Uncovered[] = [];
   let cursor = 0;
-  let prev: number | null = null;
-  slices.forEach((s, i) => {
-    if (s.start > cursor) gaps.push({ start: cursor, end: s.start, after: prev });
+  for (const s of slices) {
+    if (s.start > cursor) uncovered.push({ start: cursor, end: s.start });
     cursor = s.end ?? DAYS;
-    prev = i;
-  });
-  if (cursor < DAYS) gaps.push({ start: cursor, end: DAYS, after: prev });
-  return gaps;
+  }
+  if (cursor < DAYS) uncovered.push({ start: cursor, end: DAYS });
+  return uncovered;
 }
 
-/** What actually runs on each stretch of time: a formula, nothing (blackout), or a gap. */
+/** What actually runs on each stretch of time: a formula, a blackout, or nothing (uncovered). */
 function resolve(slices: Slice[], blackouts: Blackout[]) {
   const points = new Set([0, DAYS]);
   for (const s of slices) points.add(s.start).add(s.end ?? DAYS);
   for (const x of blackouts) points.add(x.start).add(x.end);
   const sorted = [...points].filter((p) => p >= 0 && p <= DAYS).sort((a, b) => a - b);
-  const segs: { start: number; end: number; kind: 'run' | 'blackout' | 'gap'; slice?: number }[] = [];
+  const segs: { start: number; end: number; kind: 'run' | 'blackout' | 'uncovered'; slice?: number }[] = [];
   for (let i = 0; i < sorted.length - 1; i++) {
     const start = sorted[i]!;
     const end = sorted[i + 1]!;
     const mid = (start + end) / 2;
     const slice = slices.findIndex((s) => s.start <= mid && mid < (s.end ?? DAYS));
     const blackedOut = blackouts.some((x) => x.start <= mid && mid < x.end);
-    const kind = blackedOut ? 'blackout' : slice === -1 ? 'gap' : 'run';
+    const kind = blackedOut ? 'blackout' : slice === -1 ? 'uncovered' : 'run';
     const last = segs.at(-1);
     if (last && last.kind === kind && last.slice === (kind === 'run' ? slice : undefined)) last.end = end;
     else segs.push({ start, end, kind, slice: kind === 'run' ? slice : undefined });
@@ -167,7 +165,7 @@ export function TimelineDemo() {
   const [edited, setEdited] = useState(false);
   const lane = useRef<HTMLDivElement>(null);
 
-  const gaps = useMemo(() => findGaps(slices), [slices]);
+  const uncovered = useMemo(() => findUncovered(slices), [slices]);
   const segments = useMemo(() => resolve(slices, blackouts), [slices, blackouts]);
   const totals = useMemo(() => {
     const sum = (kind: string) =>
@@ -175,9 +173,9 @@ export function TimelineDemo() {
     return {
       run: sum('run'),
       blackout: sum('blackout'),
-      gapDays: gaps.reduce((n, g) => n + g.end - g.start, 0),
+      uncoveredDays: uncovered.reduce((n, g) => n + g.end - g.start, 0),
     };
-  }, [segments, gaps]);
+  }, [segments, uncovered]);
 
   const load = (k: ScenarioKey) => {
     setKey(k);
@@ -203,18 +201,6 @@ export function TimelineDemo() {
     setEdited(true);
     if (kind === 'slice') setSlices((all) => all.map((s, j) => (j === i ? { ...s, [edge]: v } : s)));
     else setBlackouts((all) => all.map((x, j) => (j === i ? { ...x, [edge]: v } : x)));
-  };
-
-  const fillGap = (g: Gap) => {
-    setEdited(true);
-    setSlices((all) =>
-      all.map((s, j) => {
-        // Extend the older formula up to the next one; a leading gap pulls the first one back to Start.
-        if (g.after === j) return { ...s, end: g.end >= DAYS ? null : g.end };
-        if (g.after === null && j === 0) return { ...s, start: 0 };
-        return s;
-      }),
-    );
   };
 
   const drag = (kind: 'slice' | 'blackout', i: number, edge: 'start' | 'end') => ({
@@ -281,32 +267,24 @@ export function TimelineDemo() {
 
           <div className="mt-4 overflow-x-auto pb-1">
             <div className="min-w-[36rem] px-1">
-              {/* Gaps are flagged above the timeline, each with a way to close it. */}
-              <div className="relative h-9">
-                {gaps.map((g) => (
-                  <div
-                    key={`fill-${g.start}`}
-                    className="absolute top-1 flex -translate-x-1/2 items-center gap-1.5 whitespace-nowrap"
+              {/* Uncovered stretches are flagged above the timeline. */}
+              <div className="relative h-7">
+                {uncovered.map((g) => (
+                  <span
+                    key={`label-${g.start}`}
+                    className="absolute top-1 -translate-x-1/2 text-xs font-semibold whitespace-nowrap text-warn"
                     style={{ left: pct((g.start + g.end) / 2) }}
                   >
-                    <span className="text-xs font-semibold text-warn">Gap · {days(g.end - g.start)}</span>
-                    <button
-                      type="button"
-                      onClick={() => fillGap(g)}
-                      aria-label={`Fill the ${days(g.end - g.start)} gap from ${fmtDay(g.start)} to ${fmtDay(g.end)}`}
-                      className="rounded-full bg-accent px-2 py-0.5 text-[0.68rem] font-semibold text-accent-fg shadow-card hover:bg-fg hover:text-bg"
-                    >
-                      Fill gap
-                    </button>
-                  </div>
+                    Uncovered · {days(g.end - g.start)}
+                  </span>
                 ))}
               </div>
 
               {/* Lane */}
               <div ref={lane} className="relative h-40">
-                {gaps.map((g) => (
+                {uncovered.map((g) => (
                   <div
-                    key={`gap-${g.start}`}
+                    key={`uncovered-${g.start}`}
                     className="absolute inset-y-0 z-10 -translate-x-1/2 rounded-xl border border-dashed border-warn bg-warn-soft"
                     style={{
                       left: pct((g.start + g.end) / 2),
@@ -380,12 +358,12 @@ export function TimelineDemo() {
                     className={clsx(
                       'absolute inset-y-0',
                       seg.kind === 'run' && sliceTone[seg.slice! % sliceTone.length],
-                      seg.kind === 'gap' && 'bg-warn/40',
+                      seg.kind === 'uncovered' && 'bg-warn/40',
                     )}
                     style={{
                       left: pct(seg.start),
                       width:
-                        seg.kind === 'gap'
+                        seg.kind === 'uncovered'
                           ? `max(3px, ${pct(seg.end - seg.start)})`
                           : pct(seg.end - seg.start),
                       background:
@@ -453,15 +431,15 @@ export function TimelineDemo() {
               <dt className="text-[0.72rem] text-subtle">Blacked out</dt>
               <dd className="mt-0.5 font-display text-lg font-bold text-fg">{days(totals.blackout)}</dd>
             </div>
-            <div className={clsx('rounded-xl p-3', gaps.length ? 'bg-warn-soft' : 'bg-elev')}>
-              <dt className="text-[0.72rem] text-subtle">Gaps</dt>
+            <div className={clsx('rounded-xl p-3', uncovered.length ? 'bg-warn-soft' : 'bg-elev')}>
+              <dt className="text-[0.72rem] text-subtle">Uncovered</dt>
               <dd
                 className={clsx(
                   'mt-0.5 font-display text-lg font-bold',
-                  gaps.length ? 'text-warn' : 'text-ok',
+                  uncovered.length ? 'text-warn' : 'text-ok',
                 )}
               >
-                {gaps.length ? `${gaps.length} · ${days(totals.gapDays)}` : 'None'}
+                {uncovered.length ? `${uncovered.length} · ${days(totals.uncoveredDays)}` : 'None'}
               </dd>
             </div>
           </dl>

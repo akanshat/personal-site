@@ -23,9 +23,9 @@ export default function Playground() {
         </h2>
         <p className="mt-3 max-w-2xl leading-relaxed text-muted">
           Many systems store a value that is defined differently over time, like a price or a formula. Each
-          version is valid for its own period, periods never overlap, and any time left uncovered is a gap.
-          Blackout windows sit on top and switch it off for a while, whatever is underneath. Pick an edge
-          case, then drag the edges.
+          version is valid for its own period, periods never overlap, and any time no formula covers is
+          flagged as uncovered. Blackout windows sit on top and switch it off for a while, whatever is
+          underneath. Pick an edge case, then drag the edges.
         </p>
         <div className="mt-8">
           <TimelineDemo />
