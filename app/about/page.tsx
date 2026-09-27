@@ -61,7 +61,7 @@ export default function About() {
               sources or a cache that shows, through its metrics, what it&apos;s doing.
             </p>
             <p>
-              I studied Computer Science at ABV-IIITM Gwalior. Before graduating I interned at{' '}
+              I studied Computer Science at IIIT Gwalior. Before graduating I interned at{' '}
               <strong>Rakuten</strong>, building an internal testing tool for QA engineers. At{' '}
               <strong>Reliance Jio</strong> I then led the move of JioMart&apos;s B2B partner app from native
               Android to the responsive web, and set up its design system.

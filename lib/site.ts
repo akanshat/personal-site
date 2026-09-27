@@ -136,7 +136,7 @@ export const experience: Experience[] = [
 ];
 
 export const education = {
-  school: 'ABV-IIITM Gwalior',
+  school: 'IIIT Gwalior',
   fullName: 'Atal Bihari Vajpayee Indian Institute of Information Technology and Management',
   degree: 'B.Tech, Computer Science',
   years: '2017 – 2021',
@@ -152,7 +152,7 @@ export const education = {
 export const toolbox: { group: string; items: string[] }[] = [
   {
     group: 'Backend & data',
-    items: ['Node.js', 'Go', 'Java', 'Spring Boot', 'REST APIs', 'PostgreSQL', 'MongoDB', 'Prometheus'],
+    items: ['Node.js', 'Go', 'REST APIs', 'PostgreSQL', 'MongoDB', 'Prometheus'],
   },
   {
     group: 'Frontend',
@@ -190,21 +190,21 @@ export const direction: {
   updated?: string;
   link?: { href: string; label: string };
 }[] = [
-  {
-    label: 'Before',
-    title: 'Four years of frontend at Phaidra',
-    body: 'First frontend hire at an NVIDIA-backed startup. I built the tools engineers used to map thousands of plant sensors and read charts at a million points per series.',
-  },
-  {
-    label: 'Now',
-    title: 'Going deeper on distributed systems',
-    updated: 'Sep 2026',
-    body: "Reading Designing Data-Intensive Applications and working through Fly.io's Gossip Glomers challenges in Go.",
-    link: { href: 'https://github.com/akanshat/maelstrom-engine', label: 'akanshat/maelstrom-engine' },
-  },
-  {
-    label: 'Next',
-    title: 'A backend or distributed systems role',
-    body: "Remote or hybrid, from India. I'd bring four years of shipping product with a team, and a growing depth in Go.",
-  },
-];
+    {
+      label: 'Before',
+      title: 'Four years of frontend at Phaidra',
+      body: 'First frontend hire at an NVIDIA-backed startup. I built the tools engineers used to map thousands of plant sensors and read charts at a million points per series.',
+    },
+    {
+      label: 'Now',
+      title: 'Going deeper on distributed systems',
+      updated: 'Sep 2026',
+      body: "Reading Designing Data-Intensive Applications and working through Fly.io's Gossip Glomers challenges in Go.",
+      link: { href: 'https://github.com/akanshat/maelstrom-engine', label: 'akanshat/maelstrom-engine' },
+    },
+    {
+      label: 'Next',
+      title: 'A backend or distributed systems role',
+      body: "Remote or hybrid, from India. I'd bring four years of shipping product with a team, and a growing depth in Go.",
+    },
+  ];
