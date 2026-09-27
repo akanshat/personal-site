@@ -76,7 +76,7 @@ const personJsonLd = {
   email: `mailto:${site.email}`,
   jobTitle: site.role,
   address: { '@type': 'PostalAddress', addressCountry: 'IN' },
-  alumniOf: { '@type': 'CollegeOrUniversity', name: 'ABV-IIITM Gwalior' },
+  alumniOf: { '@type': 'CollegeOrUniversity', name: 'IIIT Gwalior' },
   knowsAbout: [
     'React',
     'TypeScript',

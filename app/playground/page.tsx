@@ -5,7 +5,7 @@ import { Container, Eyebrow } from '@/components/ui';
 
 export const metadata: Metadata = {
   title: 'Playground',
-  description: 'Small interactive toys I build to think through a problem.',
+  description: 'Small interactive toys I built to think through a problem.',
   alternates: { canonical: '/playground' },
 };
 
@@ -14,7 +14,7 @@ export default function Playground() {
     <Container className="pt-12 pb-24 sm:pt-20">
       <Eyebrow>Playground</Eyebrow>
       <h1 className="mt-3 text-4xl font-bold tracking-[-0.03em] text-balance sm:text-5xl">
-        Small things I build to think a problem through
+        Small things I built to think a problem through
       </h1>
 
       <section aria-labelledby="timeline-toy" className="mt-14">
