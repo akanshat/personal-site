@@ -67,10 +67,10 @@ function Hero() {
               See selected work
               <ArrowDown className="size-4" />
             </a>
-            <a href={site.cv} className={buttonClass('secondary')} target="_blank" rel="noreferrer">
+            {/* <a href={site.cv} className={buttonClass('secondary')} target="_blank" rel="noreferrer">
               <FileText className="size-4" />
               CV
-            </a>
+            </a> */}
           </div>
         </div>
 
