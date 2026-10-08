@@ -6,8 +6,8 @@ export default function NotFound() {
     <Container className="grid min-h-[60vh] place-items-center py-24 text-center">
       <div>
         <Eyebrow>404 · result: unknown</Eyebrow>
-        <h1 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
-          This page has no <span className="font-extrabold text-accent">reading</span>.
+        <h1 className="mt-4 text-4xl font-bold tracking-[-0.03em] sm:text-5xl">
+          This page has no <mark>reading</mark>.
         </h1>
         <p className="mx-auto mt-4 max-w-md text-muted">
           The exporter might be offline, or the link might be wrong. Either way, there&apos;s nothing here.

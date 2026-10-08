@@ -7,9 +7,12 @@ import { Analytics } from '@vercel/analytics/next';
 import type { ReactNode } from 'react';
 
 import { CommandPalette } from '@/components/command-palette';
+import { ConsoleHello } from '@/components/easter-eggs';
+import { Glitter } from '@/components/palette';
 import { SiteFooter } from '@/components/site-footer';
 import { SiteHeader } from '@/components/site-header';
 import { ThemeProvider } from '@/components/theme';
+import { paletteScript } from '@/lib/palettes';
 import { site } from '@/lib/site';
 
 const bricolage = Bricolage_Grotesque({
@@ -63,8 +66,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#e0dbe3' },
-    { media: '(prefers-color-scheme: dark)', color: '#1a1725' },
+    { media: '(prefers-color-scheme: light)', color: '#fbf9f3' },
+    { media: '(prefers-color-scheme: dark)', color: '#1a1c16' },
   ],
 };
 
@@ -96,10 +99,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       suppressHydrationWarning
       className={`${figtree.variable} ${bricolage.variable} ${GeistMono.variable}`}
     >
+      <head>
+        {/* Picks this visit's colour palette before first paint. */}
+        <script dangerouslySetInnerHTML={{ __html: paletteScript }} />
+      </head>
       <body className="flex min-h-dvh flex-col bg-bg font-sans text-fg">
         <a
           href="#main"
-          className="sr-only z-50 rounded-full bg-fg px-4 py-2 text-sm text-bg focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+          className="sr-only z-50 rounded-lg bg-fg px-4 py-2 text-sm text-bg focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
         >
           Skip to content
         </a>
@@ -110,6 +117,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           </main>
           <SiteFooter />
           <CommandPalette />
+          <Glitter />
+          <ConsoleHello />
         </ThemeProvider>
         <script
           type="application/ld+json"

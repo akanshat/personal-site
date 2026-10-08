@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import { CaseSection, CaseStudyHeader, Decision, NextCase, Outcome } from '@/components/case-study';
+import { plain } from '@/components/marked';
 import { site } from '@/lib/site';
 import { getCaseStudy } from '@/lib/work';
 
@@ -8,9 +9,9 @@ const { study, next } = getCaseStudy('plant-data-mapping');
 
 export const metadata: Metadata = {
   title: study.title,
-  description: study.summary,
+  description: plain(study.summary),
   alternates: { canonical: `/work/${study.slug}` },
-  openGraph: { title: `${study.title} · ${site.name}`, description: study.summary },
+  openGraph: { title: `${study.title} · ${site.name}`, description: plain(study.summary) },
 };
 
 export default function Page() {
@@ -26,7 +27,15 @@ export default function Page() {
         ]}
       />
 
-      <CaseSection index="01" title="The problem">
+      <CaseSection
+        title="The problem"
+        note={
+          <p>
+            <b>A note.</b> This was internal product work, so the details of the product stay private. What
+            follows is how I approached it, at the level I can share publicly.
+          </p>
+        }
+      >
         <p>
           Before Phaidra&apos;s AI can work with a plant, the plant&apos;s data has to be mapped. Solution
           engineers did that mapping, plant by plant, in an internal tool.
@@ -36,13 +45,9 @@ export default function Page() {
           work. <strong>My part was the product and UI side:</strong> working out with the engineers who would
           use it what they needed, then building it.
         </p>
-        <p className="rounded-xl border border-line bg-sunken/60 px-4 py-3 text-[0.95rem]">
-          This was internal product work, so the details of the product stay private. What follows is how I
-          approached it, at the level I can share publicly.
-        </p>
       </CaseSection>
 
-      <CaseSection index="02" title="How I approached it">
+      <CaseSection title="How I approached it">
         <Decision
           title="Start from the people using it"
           cost={<>A slower start, with weeks of back-and-forth before much code.</>}
@@ -83,7 +88,7 @@ export default function Page() {
         </Decision>
       </CaseSection>
 
-      <CaseSection index="03" title="Outcome">
+      <CaseSection title="Outcome">
         <Outcome
           items={[
             { value: 'No code required', label: 'Engineers could do the mapping without writing code.' },

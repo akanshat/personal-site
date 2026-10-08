@@ -33,7 +33,7 @@ const COMMANDS: Command[] = [
   {
     id: 'work',
     group: 'Navigate',
-    label: 'Selected work',
+    label: 'Case studies',
     icon: <ArrowRight />,
     action: { type: 'go', href: '/#work' },
   },

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import { CaseSection, CaseStudyHeader, Decision, NextCase, Outcome } from '@/components/case-study';
+import { plain } from '@/components/marked';
 import { site } from '@/lib/site';
 import { getCaseStudy } from '@/lib/work';
 
@@ -8,9 +9,9 @@ const { study, next } = getCaseStudy('million-point-charts');
 
 export const metadata: Metadata = {
   title: study.title,
-  description: study.summary,
+  description: plain(study.summary),
   alternates: { canonical: `/work/${study.slug}` },
-  openGraph: { title: `${study.title} · ${site.name}`, description: study.summary },
+  openGraph: { title: `${study.title} · ${site.name}`, description: plain(study.summary) },
 };
 
 export default function Page() {
@@ -26,7 +27,15 @@ export default function Page() {
         ]}
       />
 
-      <CaseSection index="01" title="The problem">
+      <CaseSection
+        title="The problem"
+        note={
+          <p>
+            <b>A note.</b> This was internal product work, so the details of the product stay private. What
+            follows is the shape of the problem and my part in it, at the level I can share publicly.
+          </p>
+        }
+      >
         <p>
           One of Phaidra&apos;s AI features answered questions about plant data with charts. Those charts were
           big: <strong>six or more series, with around a million points in each</strong>.
@@ -35,13 +44,9 @@ export default function Page() {
           The whole point of the feature was to look at the data, so a chart that stutters at that size
           isn&apos;t usable. We were using Highcharts, and the question was whether to keep it.
         </p>
-        <p className="rounded-xl border border-line bg-sunken/60 px-4 py-3 text-[0.95rem]">
-          This was internal product work, so the details of the product stay private. What follows is the
-          shape of the problem and my part in it, at the level I can share publicly.
-        </p>
       </CaseSection>
 
-      <CaseSection index="02" title="What I did">
+      <CaseSection title="What I did">
         <Decision
           title="AG Charts over Highcharts"
           cost={<>Moving off a library the team already knew, and learning a new API.</>}
@@ -64,7 +69,7 @@ export default function Page() {
         </Decision>
       </CaseSection>
 
-      <CaseSection index="03" title="Outcome">
+      <CaseSection title="Outcome">
         <Outcome
           items={[
             {

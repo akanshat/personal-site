@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function Playground() {
   return (
-    <Container className="pt-12 pb-24 sm:pt-20">
+    <Container className="pt-6 pb-12 sm:pt-10">
       <Eyebrow>Playground</Eyebrow>
       <h1 className="mt-3 text-4xl font-bold tracking-[-0.03em] text-balance sm:text-5xl">
         Small things I built to think a problem through

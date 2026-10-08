@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import clsx from 'clsx';
 
 import { site } from '@/lib/site';
-import { Check, Copy } from './icons';
 import { useMounted } from './theme';
 
 const timeFormat = new Intl.DateTimeFormat('en-GB', {
@@ -61,17 +60,4 @@ export function useCopy(text: string) {
   };
 
   return { copied, copy };
-}
-
-export function CopyEmailButton({ className, label }: { className?: string; label?: string }) {
-  const { copied, copy } = useCopy(site.email);
-  return (
-    <button type="button" onClick={copy} className={className}>
-      {copied ? <Check className="size-4 text-ok" /> : <Copy className="size-4" />}
-      <span>{copied ? 'Copied to clipboard' : (label ?? site.email)}</span>
-      <span className="sr-only" aria-live="polite">
-        {copied ? 'Email address copied' : ''}
-      </span>
-    </button>
-  );
 }

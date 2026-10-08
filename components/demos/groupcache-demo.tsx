@@ -133,8 +133,8 @@ export function GroupcacheDemo() {
   };
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-line bg-elev shadow-card">
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line bg-sunken/60 px-4 py-2.5">
+    <figure className="soft-corners overflow-hidden rounded-[18px] border border-line bg-elev">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line bg-sunken px-4 py-2.5">
         <div className="flex items-center gap-2 font-mono text-xs text-muted">
           <span className="size-2 rounded-full bg-ok" aria-hidden />
           thanos-store · caching bucket
@@ -167,7 +167,7 @@ export function GroupcacheDemo() {
       </div>
 
       <div className="grid lg:grid-cols-[minmax(0,1fr)_19rem]">
-        <div className="border-line p-3 sm:p-5 lg:border-r">
+        <div className="border-line bg-[var(--t2,var(--fig))] p-3 sm:p-5 lg:border-r">
           <svg
             viewBox="0 0 640 320"
             className="h-auto w-full"
@@ -357,7 +357,7 @@ export function GroupcacheDemo() {
           </svg>
         </div>
 
-        <aside className="flex flex-col border-t border-line bg-sunken/40 p-4 sm:p-5 lg:border-t-0">
+        <aside className="flex flex-col border-t border-line p-4 sm:p-5 lg:border-t-0">
           <p className="font-mono text-[0.68rem] tracking-widest text-subtle uppercase">
             Step {step + 1} of {last + 1}
           </p>
@@ -367,7 +367,7 @@ export function GroupcacheDemo() {
           </div>
 
           <dl className="mt-5 grid grid-cols-2 gap-2">
-            <div className="rounded-lg border border-line bg-elev p-3">
+            <div className="rounded-lg border border-line bg-bg p-3">
               <dt className="text-[0.72rem] text-subtle">Bucket reads</dt>
               <dd
                 className={clsx(
@@ -378,7 +378,7 @@ export function GroupcacheDemo() {
                 {current.gets}
               </dd>
             </div>
-            <div className="rounded-lg border border-line bg-elev p-3">
+            <div className="rounded-lg border border-line bg-bg p-3">
               <dt className="text-[0.72rem] text-subtle">Services to run</dt>
               <dd className="mt-1 text-[0.85rem] leading-snug text-fg">
                 {mode === 'external' ? 'Thanos + memcached' : 'Thanos only'}
@@ -409,6 +409,7 @@ export function GroupcacheDemo() {
                 if (!playing && step === last) setStep(0);
                 setPlaying((p) => !p);
               }}
+              data-burst
               className="ml-auto inline-flex h-8 items-center gap-1.5 rounded-full bg-fg px-3 text-xs font-medium text-bg hover:bg-accent hover:text-accent-fg"
             >
               {playing ? <Pause className="size-3.5" /> : <Play className="size-3.5" />}
@@ -425,6 +426,10 @@ export function GroupcacheDemo() {
           </div>
         </aside>
       </div>
-    </div>
+      <figcaption className="border-t border-line px-4 py-3 text-[0.84rem] text-muted sm:px-5">
+        A simplified picture of what the pull request changed. Play it, pause it, or step through it, then
+        switch to the memcached version to compare.
+      </figcaption>
+    </figure>
   );
 }

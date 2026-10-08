@@ -3,46 +3,46 @@ import clsx from 'clsx';
 import type { ComponentProps, ReactNode } from 'react';
 
 export function Container({ className, ...props }: ComponentProps<'div'>) {
-  return <div className={clsx('mx-auto w-full max-w-6xl px-5 sm:px-8', className)} {...props} />;
+  return <div className={clsx('mx-auto w-full max-w-[1080px] px-5', className)} {...props} />;
 }
 
-/** Small monospace label — the "instrument panel" voice of the site. */
+/** Small monospace label for dates, sources and section kickers. */
 export function Eyebrow({ className, ...props }: ComponentProps<'p'>) {
   return (
+    <p className={clsx('font-mono text-[0.72rem] tracking-[0.02em] text-subtle', className)} {...props} />
+  );
+}
+
+/** Uppercase mono label, used above short columns and inside cards. */
+export function Label({ className, ...props }: ComponentProps<'p'>) {
+  return (
     <p
-      className={clsx('font-mono text-[0.72rem] tracking-[0.14em] text-subtle uppercase', className)}
+      className={clsx(
+        'font-mono text-[0.68rem] font-medium tracking-[0.1em] text-subtle uppercase',
+        className,
+      )}
       {...props}
     />
   );
 }
 
 export function SectionHeading({
-  index,
   title,
   id,
   children,
   className,
 }: {
-  index: string;
   title: string;
   id?: string;
   children?: ReactNode;
   className?: string;
 }) {
   return (
-    <div className={clsx('flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between', className)}>
-      <div>
-        <Eyebrow>
-          <span className="text-accent">{index}</span>
-          <span className="mx-2" aria-hidden>
-            /
-          </span>
-          {title}
-        </Eyebrow>
-        <h2 id={id} className="mt-3 text-2xl font-semibold tracking-tight text-fg sm:text-3xl">
-          {children}
-        </h2>
-      </div>
+    <div className={className}>
+      <h2 id={id} className="text-[1.75rem] leading-tight font-bold tracking-[-0.025em] text-balance">
+        {title}
+      </h2>
+      {children && <p className="mt-1.5 text-muted">{children}</p>}
     </div>
   );
 }
@@ -50,14 +50,14 @@ export function SectionHeading({
 type ButtonVariant = 'primary' | 'secondary' | 'ghost';
 
 const buttonStyles: Record<ButtonVariant, string> = {
-  primary: 'bg-fg text-bg hover:bg-accent hover:text-accent-fg shadow-card',
-  secondary: 'border border-line-strong bg-elev text-fg hover:border-accent hover:text-accent',
+  primary: 'bg-fg text-bg hover:bg-accent hover:text-accent-fg',
+  secondary: 'border-[1.5px] border-fg text-fg hover:bg-fg hover:text-bg',
   ghost: 'text-muted hover:text-fg hover:bg-sunken',
 };
 
 export function buttonClass(variant: ButtonVariant = 'secondary', className?: string) {
   return clsx(
-    'inline-flex h-10 items-center justify-center gap-2 rounded-full px-4 text-sm font-medium whitespace-nowrap transition-colors duration-150',
+    'inline-flex h-10 items-center justify-center gap-2 rounded-[10px] px-4 font-mono text-[0.78rem] whitespace-nowrap transition-colors duration-150',
     buttonStyles[variant],
     className,
   );
@@ -75,7 +75,7 @@ export function Tag({ children, className }: { children: ReactNode; className?: 
   return (
     <span
       className={clsx(
-        'inline-flex items-center rounded-full border border-line px-2.5 py-0.5 font-mono text-[0.7rem] text-muted',
+        'inline-flex items-center rounded-md bg-sunken px-2 py-0.5 font-mono text-[0.7rem] text-muted',
         className,
       )}
     >
@@ -98,13 +98,5 @@ export function Kbd({ children, className }: { children: ReactNode; className?: 
 }
 
 export function TextLink({ className, ...props }: ComponentProps<typeof Link>) {
-  return (
-    <Link
-      className={clsx(
-        'text-fg underline decoration-accent/60 decoration-[1.5px] underline-offset-[3px] transition-colors hover:text-accent hover:decoration-accent',
-        className,
-      )}
-      {...props}
-    />
-  );
+  return <Link className={clsx('link', className)} {...props} />;
 }

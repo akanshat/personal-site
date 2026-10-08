@@ -7,13 +7,13 @@ import { Moon, Sun } from './icons';
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   return (
-    <NextThemes attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+    <NextThemes attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
       {children}
     </NextThemes>
   );
 }
 
-const noop = () => () => { };
+const noop = () => () => {};
 
 /** True after hydration; avoids theme-dependent markup mismatching the server. */
 export function useMounted() {

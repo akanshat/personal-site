@@ -2,8 +2,11 @@ import Link from 'next/link';
 import type { ReactNode } from 'react';
 
 import type { CaseStudy } from '@/lib/work';
-import { ArrowLeft, ArrowRight } from './icons';
-import { Container, Eyebrow, Tag } from './ui';
+import { Marked } from './marked';
+import { Container, Eyebrow, Label } from './ui';
+
+/* Every case study is a reading column of up to 660px, with notes in the margin beside it. */
+const columns = 'grid gap-y-5 lg:grid-cols-[minmax(0,660px)_minmax(0,1fr)] lg:gap-x-14';
 
 export function CaseStudyHeader({
   study,
@@ -13,35 +16,36 @@ export function CaseStudyHeader({
   facts: { label: string; value: ReactNode }[];
 }) {
   return (
-    <header className="relative overflow-hidden">
-      <div className="bg-dots mask-fade-b pointer-events-none absolute inset-0 -z-10" aria-hidden />
-      <Container className="pt-10 pb-12 sm:pt-16">
-        <Link
-          href="/#work"
-          className="group inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-fg"
-        >
-          <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-0.5" />
-          All work
-        </Link>
-        <Eyebrow className="mt-10">
-          {study.org} · {study.context}
-        </Eyebrow>
-        <h1 className="mt-3 max-w-4xl text-[2.3rem] leading-[1.08] font-semibold tracking-[-0.03em] text-balance sm:text-[3.4rem]">
-          {study.title}
-        </h1>
-        <p className="mt-6 max-w-3xl text-lg leading-relaxed text-pretty text-muted sm:text-xl">
-          {study.summary}
-        </p>
-        <div className="mt-6 flex flex-wrap gap-1.5">
-          {study.tags.map((tag) => (
-            <Tag key={tag}>{tag}</Tag>
-          ))}
+    <header>
+      <Container className={`${columns} pt-6 sm:pt-8`}>
+        <div>
+          <Link
+            href="/#work"
+            className="group inline-flex items-center gap-1.5 font-mono text-[0.8rem] font-semibold text-accent hover:text-accent-ink"
+          >
+            <span aria-hidden className="inline-block transition-transform group-hover:-translate-x-1">
+              ←
+            </span>
+            All case studies
+          </Link>
+          <h1
+            data-sparkle="5"
+            className="mt-8 text-[clamp(2.3rem,5vw,3.4rem)] leading-[1.06] font-bold tracking-[-0.03em] text-balance"
+          >
+            {study.title}
+          </h1>
+          <Eyebrow className="mt-3">
+            {study.org} · {study.context}
+          </Eyebrow>
+          <p className="mt-5 text-[1.08rem] leading-relaxed text-pretty text-muted">
+            <Marked text={study.summary} />
+          </p>
         </div>
-        <dl className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line lg:grid-cols-4">
+        <dl className="grid content-end gap-3 font-mono max-lg:grid-cols-2 lg:pb-2">
           {facts.map((f) => (
-            <div key={f.label} className="bg-bg p-4 sm:p-5">
-              <dt className="font-mono text-[0.68rem] tracking-[0.14em] text-subtle uppercase">{f.label}</dt>
-              <dd className="mt-2 text-[0.92rem] leading-snug text-fg">{f.value}</dd>
+            <div key={f.label} className="border-l-2 border-line pl-3">
+              <dt className="text-[0.66rem] tracking-[0.06em] text-subtle uppercase">{f.label}</dt>
+              <dd className="text-[0.8rem] text-fg">{f.value}</dd>
             </div>
           ))}
         </dl>
@@ -50,70 +54,39 @@ export function CaseStudyHeader({
   );
 }
 
+/** A section of the write-up; `note` sits in the margin beside it (and below it on phones). */
 export function CaseSection({
-  index,
   title,
+  note,
   children,
   id,
 }: {
-  index: string;
   title: string;
+  note?: ReactNode;
   children: ReactNode;
   id?: string;
 }) {
   return (
-    <section id={id} className="scroll-mt-24">
-      <Container className="grid gap-4 py-10 sm:py-14 lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-16">
-        <div className="lg:sticky lg:top-24 lg:self-start">
-          <h2 className="font-mono text-[0.72rem] tracking-[0.14em] text-subtle uppercase">
-            <span className="text-accent">{index}</span>
-            <span className="mx-2" aria-hidden>
-              /
-            </span>
-            {title}
-          </h2>
+    <section id={id} className="scroll-mt-8">
+      <Container className={`${columns} pt-14 sm:pt-16`}>
+        <div>
+          <h2 className="text-[1.5rem] leading-tight font-bold tracking-[-0.022em]">{title}</h2>
+          <div className="prose-case mt-3">{children}</div>
         </div>
-        <div className="prose-case max-w-[42rem]">{children}</div>
+        {note && (
+          <aside className="grid content-start gap-3.5 font-mono text-[0.74rem] leading-relaxed text-subtle lg:pt-12 [&_b]:font-semibold [&_b]:text-muted [&>p]:border-t [&>p]:border-line [&>p]:pt-2">
+            {note}
+          </aside>
+        )}
       </Container>
     </section>
   );
 }
 
-export function DemoSection({
-  id,
-  intro,
-  note = 'made-up data · illustrative only',
-  children,
-}: {
-  id: string;
-  intro: ReactNode;
-  note?: string;
-  children: ReactNode;
-}) {
+export function DemoSection({ id, children }: { id: string; children: ReactNode }) {
   return (
-    <section
-      id={id}
-      aria-label="Interactive demo"
-      className="scroll-mt-20 border-y border-line bg-sunken/40 py-12 sm:py-16"
-    >
-      <Container>
-        <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <h2 className="font-mono text-[0.72rem] tracking-[0.14em] text-subtle uppercase">
-              <span className="text-accent">Try it</span>
-              <span className="mx-2" aria-hidden>
-                /
-              </span>
-              Interactive demo
-            </h2>
-            <p className="mt-3 max-w-2xl text-muted">{intro}</p>
-          </div>
-          <p className="shrink-0 rounded-full border border-line bg-elev px-3 py-1 font-mono text-[0.68rem] text-subtle">
-            {note}
-          </p>
-        </div>
-        {children}
-      </Container>
+    <section id={id} aria-label="Interactive demo" className="scroll-mt-8">
+      <Container className="pt-14 sm:pt-16">{children}</Container>
     </section>
   );
 }
@@ -121,26 +94,30 @@ export function DemoSection({
 /** A decision, what it bought, and what it cost. */
 export function Decision({ title, children, cost }: { title: string; children: ReactNode; cost: ReactNode }) {
   return (
-    <div className="not-prose mt-8 overflow-hidden rounded-2xl border border-line bg-elev first:mt-0">
+    <div className="not-prose soft-corners overflow-hidden rounded-[18px] border border-line bg-elev">
       <div className="p-5 sm:p-6">
-        <h3 className="text-[1.05rem] font-semibold tracking-tight text-fg">{title}</h3>
+        <h3 className="text-[1.08rem] font-bold tracking-[-0.015em] text-fg">{title}</h3>
         <div className="mt-2 space-y-3 text-[0.98rem] leading-relaxed text-muted">{children}</div>
       </div>
-      <div className="border-t border-line bg-sunken/60 px-5 py-3.5 text-[0.9rem] leading-relaxed text-muted sm:px-6">
-        <span className="mr-2 font-mono text-[0.68rem] tracking-[0.14em] text-warn uppercase">Trade-off</span>
+      <div className="border-t border-line bg-sunken px-5 py-3.5 text-[0.9rem] leading-relaxed text-muted sm:px-6">
+        <span className="mr-2 font-mono text-[0.68rem] tracking-[0.1em] text-fg uppercase">Trade-off</span>
         {cost}
       </div>
     </div>
   );
 }
 
-export function Outcome({ items }: { items: { value: string; label: string }[] }) {
+/** What changed, as label / detail rows. */
+export function Outcome({ items }: { items: { value: string; label: ReactNode }[] }) {
   return (
-    <ul className="not-prose grid gap-3 sm:grid-cols-2 sm:[&>li:last-child:nth-child(odd)]:col-span-2">
+    <ul className="not-prose grid gap-3.5">
       {items.map((i) => (
-        <li key={i.value} className="rounded-2xl border border-line bg-elev p-5 before:hidden">
-          <p className="font-medium text-fg">{i.value}</p>
-          <p className="mt-1 text-[0.92rem] leading-relaxed text-muted">{i.label}</p>
+        <li
+          key={i.value}
+          className="grid gap-0.5 border-t border-line pt-3 sm:grid-cols-[10rem_minmax(0,1fr)] sm:gap-4"
+        >
+          <b className="font-semibold text-fg">{i.value}</b>
+          <span className="text-muted">{i.label}</span>
         </li>
       ))}
     </ul>
@@ -149,19 +126,24 @@ export function Outcome({ items }: { items: { value: string; label: string }[] }
 
 export function NextCase({ next }: { next: CaseStudy }) {
   return (
-    <Container className="mt-16">
+    <Container className="mt-20">
       <Link
         href={`/work/${next.slug}`}
-        className="group flex flex-col gap-2 rounded-2xl border border-line bg-elev p-6 transition-colors hover:border-line-strong sm:flex-row sm:items-center sm:justify-between sm:p-8"
+        className="group flex flex-wrap items-end justify-between gap-x-8 gap-y-3 border-t-[3px] border-[var(--cs-rule,var(--fg))] pt-4"
       >
         <div>
-          <Eyebrow>Next case study</Eyebrow>
-          <p className="mt-2 text-xl font-semibold tracking-tight">{next.title}</p>
-          <p className="mt-1 text-sm text-muted">
-            {next.org} · {next.context}
+          <Label>Next case study</Label>
+          <p className="mt-1 font-display text-[1.4rem] leading-tight font-bold tracking-[-0.02em] group-hover:text-accent">
+            {next.title}
           </p>
+          <Eyebrow className="mt-1">{next.eyebrow}</Eyebrow>
         </div>
-        <ArrowRight className="size-6 text-subtle transition-all group-hover:translate-x-1 group-hover:text-accent" />
+        <span className="font-mono text-[0.8rem] font-semibold text-accent">
+          Read it{' '}
+          <span aria-hidden className="inline-block transition-transform group-hover:translate-x-1">
+            →
+          </span>
+        </span>
       </Link>
     </Container>
   );
