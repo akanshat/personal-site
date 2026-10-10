@@ -22,7 +22,7 @@ export const site = {
   availability: 'Full-stack and backend roles',
   workMode: 'Remote or hybrid',
   cv: '/CV/Akansha_Tiwari_SWE.pdf',
-  repo: 'https://github.com/akanshat/personal-website',
+  repo: 'https://github.com/akanshat/personal-site',
   links: {
     github: 'https://github.com/akanshat',
     linkedin: 'https://www.linkedin.com/in/akansha-tiwari-10/',

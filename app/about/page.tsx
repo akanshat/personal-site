@@ -116,9 +116,9 @@ export default function About() {
       <section aria-labelledby="colophon" className="mt-24">
         <SectionHeading title="How this site is built" id="colophon" />
         <p className="mt-3 max-w-[660px] leading-relaxed text-muted">
-          Next.js and React, in strict TypeScript, styled with Tailwind CSS. The drawings are hand-written
-          SVG. Headings are set in Bricolage Grotesque, text in Figtree, and labels and dates in Geist Mono.
-          Each visit gets one of four colour palettes, in light or dark.{' '}
+          Next.js and React, in strict TypeScript, styled with Tailwind CSS. Headings are set in Bricolage
+          Grotesque, text in Figtree, and labels and dates in Geist Mono. The colours are matcha and sakura,
+          in light or dark.{' '}
           <a href={site.repo} className="link">
             The source is on GitHub.
           </a>
