@@ -7,7 +7,7 @@ import clsx from 'clsx';
 import { scrollToCurrentHash } from '@/lib/scroll-to-hash';
 import { site } from '@/lib/site';
 import { OPEN_PALETTE_EVENT } from './command-palette';
-import { Search } from './icons';
+import { Blossom, Search } from './icons';
 import { ThemeToggle } from './theme';
 import { Container } from './ui';
 
@@ -24,7 +24,11 @@ export function SiteHeader() {
   return (
     <header>
       <Container className="flex flex-wrap items-center gap-x-4 gap-y-2 py-6">
-        <Link href="/" className="mr-auto text-[0.95rem] font-semibold text-fg">
+        <Link
+          href="/"
+          className="group mr-auto flex items-center gap-2 font-display text-[1.15rem] font-bold tracking-[-0.02em] text-fg"
+        >
+          <Blossom className="size-[1.15em] transition-transform duration-500 ease-out group-hover:rotate-[72deg]" />
           {site.name}
         </Link>
 

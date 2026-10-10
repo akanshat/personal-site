@@ -6,7 +6,7 @@ import clsx from 'clsx';
 
 import { scrollToCurrentHash } from '@/lib/scroll-to-hash';
 import { site } from '@/lib/site';
-import { caseStudies } from '@/lib/work';
+import { featuredCaseStudies } from '@/lib/work';
 import { ArrowRight, ArrowUpRight, Copy, FileText, GitHub, LinkedIn, Moon, Search } from './icons';
 import { useCopy } from './status';
 import { useToggleTheme } from './theme';
@@ -59,7 +59,7 @@ const COMMANDS: Command[] = [
     icon: <ArrowRight />,
     action: { type: 'go', href: '/#contact' },
   },
-  ...caseStudies.map<Command>((c) => ({
+  ...featuredCaseStudies.map<Command>((c) => ({
     id: c.slug,
     group: 'Case studies',
     label: c.title,

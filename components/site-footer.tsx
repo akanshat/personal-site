@@ -1,7 +1,6 @@
 import Link from 'next/link';
 
 import { site } from '@/lib/site';
-import { PaletteShuffle } from './palette';
 import { LocalTime } from './status';
 import { Container, Kbd } from './ui';
 
@@ -12,7 +11,6 @@ export function SiteFooter() {
         <span>
           © {new Date().getFullYear()} {site.name} · <LocalTime /> in {site.location}
         </span>
-        <PaletteShuffle />
         <span>
           <a
             href={site.links.github}

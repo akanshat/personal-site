@@ -8,11 +8,9 @@ import type { ReactNode } from 'react';
 
 import { CommandPalette } from '@/components/command-palette';
 import { ConsoleHello } from '@/components/easter-eggs';
-import { Glitter } from '@/components/palette';
 import { SiteFooter } from '@/components/site-footer';
 import { SiteHeader } from '@/components/site-header';
 import { ThemeProvider } from '@/components/theme';
-import { paletteScript } from '@/lib/palettes';
 import { site } from '@/lib/site';
 
 const bricolage = Bricolage_Grotesque({
@@ -66,7 +64,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#fbf9f3' },
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
     { media: '(prefers-color-scheme: dark)', color: '#1a1c16' },
   ],
 };
@@ -99,10 +97,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       suppressHydrationWarning
       className={`${figtree.variable} ${bricolage.variable} ${GeistMono.variable}`}
     >
-      <head>
-        {/* Picks this visit's colour palette before first paint. */}
-        <script dangerouslySetInnerHTML={{ __html: paletteScript }} />
-      </head>
       <body className="flex min-h-dvh flex-col bg-bg font-sans text-fg">
         <a
           href="#main"
@@ -117,7 +111,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           </main>
           <SiteFooter />
           <CommandPalette />
-          <Glitter />
           <ConsoleHello />
         </ThemeProvider>
         <script

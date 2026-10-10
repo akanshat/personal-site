@@ -3,10 +3,8 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ------------------------------------------------------------------ */
-/* Colour schemes                                                      */
-/* Four palettes, each with a light and a dark version. A small script */
-/* in <head> picks one per visit and sets data-pal on <html>; with no  */
-/* script, Matcha & sakura is the default. next-themes sets .dark.     */
+/* Colour scheme: Matcha & sakura, light and dark. next-themes sets   */
+/* .dark on <html>.                                                    */
 /* ------------------------------------------------------------------ */
 
 /* Matcha & sakura · light */
@@ -77,243 +75,13 @@
   color-scheme: dark;
 }
 
-/* Rose & midnight · light */
-:root[data-pal='rose'] {
-  --bg: #fbf9f6;
+/* Light mode sits on plain white; cards keep their borders. */
+:root:not(.dark) {
+  --bg: #ffffff;
   --bg-elev: #ffffff;
-  --bg-sunken: #f1ede7;
-  --fig: #f1ede7;
-  --fg: #1d1b20;
-  --fg-muted: #4f4a52;
-  --fg-subtle: #716c76;
-  --border: #e8e3dc;
-  --border-strong: #d6cfc6;
-  --accent: #a3243b;
-  --accent-ink: #7f1a2d;
-  --accent-soft: #f6dde1;
-  --pencil: #f0a9c2;
-  --ok: #c9a646;
-  --ok-soft: #f5e9c4;
-  --ok-ink: #75600f;
-  --s2: #4f6fa8;
-  --s3: #c9a646;
-  --t1: #f4d6d9;
-  --t2: #dbe8f5;
-  --t3: #e9e6e1;
-  --t4: #e6d9f0;
-  --t5: #f6ebc5;
-  --now-bg: #1f2547;
-  --now-fg: #eef0ff;
-  --now-fg2: #c9cdea;
-  --now-label: #f3bfd2;
-  --now-link: #b9c8ff;
-  --now-border: #1f2547;
-  --halo: #f0a9c2;
-  --cs-rule: #1d1b20;
-  --pin1: #c9a646;
-  --pin3: #f0a9c2;
-  --alarm: #a3243b;
-  color-scheme: light;
 }
 
-/* Rose & midnight · dark */
-:root[data-pal='rose'].dark {
-  --bg: #12131f;
-  --bg-elev: #1a1c2c;
-  --bg-sunken: #212439;
-  --fig: #212439;
-  --fg: #eef0fa;
-  --fg-muted: #c3c6dc;
-  --fg-subtle: #9699b4;
-  --border: #2a2d44;
-  --border-strong: #3d415e;
-  --accent: #ff8fa3;
-  --accent-ink: #ffb3c0;
-  --accent-soft: #3a1f2b;
-  --pencil: #f0a9c2;
-  --ok: #e6c66a;
-  --ok-soft: #3a3320;
-  --ok-ink: #f0d68c;
-  --alarm: #ff8a8a;
-  --s2: #8fb0ff;
-  --s3: #e6c66a;
-  --t1: #3a2027;
-  --t2: #1f2c40;
-  --t3: #2a2a30;
-  --t4: #2e2440;
-  --t5: #3a3420;
-  --now-bg: #2b3266;
-  --now-fg: #eef0ff;
-  --now-fg2: #cdd1ee;
-  --now-label: #f3bfd2;
-  --now-link: #c4d0ff;
-  --now-border: #3c4590;
-  --halo: #f0a9c2;
-  --cs-rule: #eef0fa;
-  --pin1: #e6c66a;
-  --pin3: #f0a9c2;
-  color-scheme: dark;
-}
-
-/* Your palette, all six · light */
-:root[data-pal='palette'] {
-  --bg: #f0f2f3;
-  --bg-elev: #fbfcfc;
-  --bg-sunken: #e0e4e7;
-  --fig: #e0e4e7;
-  --fg: #22302e;
-  --fg-muted: #48574f;
-  --fg-subtle: #5f6d69;
-  --border: #d9dee1;
-  --border-strong: #c2cacb;
-  --accent: #3f6e66;
-  --accent-ink: #2f554f;
-  --accent-soft: #dbe8e2;
-  --pencil: #cb96ba;
-  --ok: #77a39a;
-  --ok-soft: #d0ddc4;
-  --ok-ink: #35574f;
-  --s2: #9b6a8c;
-  --s3: #6d71ad;
-  --t1: #d0ddc4;
-  --t2: #b0b3d6;
-  --t3: #9bbcac;
-  --t4: #cb96ba;
-  --t5: #e0e4e7;
-  --now-bg: #77a39a;
-  --now-fg: #142420;
-  --now-fg2: #1f332e;
-  --now-label: #142420;
-  --now-link: #142420;
-  --now-border: #77a39a;
-  --now-pin: #fbfcfc;
-  --halo: #cb96ba;
-  --cs-rule: #77a39a;
-  --pin1: #cb96ba;
-  --pin3: #b0b3d6;
-  --alarm: #b0476a;
-  color-scheme: light;
-}
-
-/* Your palette, all six · dark */
-:root[data-pal='palette'].dark {
-  --bg: #172120;
-  --bg-elev: #1e2a28;
-  --bg-sunken: #243230;
-  --fig: #243230;
-  --fg: #eef2f0;
-  --fg-muted: #c5d0cc;
-  --fg-subtle: #98a7a2;
-  --border: #2c3a37;
-  --border-strong: #405049;
-  --accent: #9bbcac;
-  --accent-ink: #bcd6c8;
-  --accent-soft: #26383a;
-  --pencil: #cb96ba;
-  --ok: #9bbcac;
-  --ok-soft: #2a3a33;
-  --ok-ink: #bcd6c8;
-  --alarm: #f19aa8;
-  --s2: #cb96ba;
-  --s3: #b0b3d6;
-  --t1: #2e3a2a;
-  --t2: #2c2e46;
-  --t3: #253a33;
-  --t4: #3d2a38;
-  --t5: #2a3236;
-  --now-bg: #77a39a;
-  --now-fg: #142420;
-  --now-fg2: #1f332e;
-  --now-label: #142420;
-  --now-link: #142420;
-  --now-border: #77a39a;
-  --now-pin: #fbfcfc;
-  --halo: #cb96ba;
-  --cs-rule: #77a39a;
-  --pin1: #cb96ba;
-  --pin3: #b0b3d6;
-  color-scheme: dark;
-}
-
-/* Strawberry + glitter · light */
-:root[data-pal='glitter'] {
-  --bg: #fdf7f1;
-  --bg-elev: #fffcf8;
-  --bg-sunken: #f6ebe1;
-  --fig: #f6ebe1;
-  --fg: #3a2622;
-  --fg-muted: #66504a;
-  --fg-subtle: #806963;
-  --border: #efe1d5;
-  --border-strong: #e2cfc0;
-  --accent: #b13d5e;
-  --accent-ink: #8f2d4a;
-  --accent-soft: #fbe3ea;
-  --pencil: #f2a7ba;
-  --ok: #6fb08f;
-  --ok-soft: #dff2e8;
-  --ok-ink: #2f6e52;
-  --alarm: #c2453b;
-  --s2: #6fb08f;
-  --s3: #d08a3e;
-  --t1: #fbe0e7;
-  --t2: #dff2e8;
-  --t3: #fbf0c6;
-  --t4: #ece2f6;
-  --t5: #f9e2d2;
-  --now-border: #f2a7ba;
-  --halo: #f2a7ba;
-  --cs-rule: #b13d5e;
-  --pin1: #c98b5a;
-  --pin3: #f2a7ba;
-  --gl1: #f9b8cb;
-  --gl2: #ffd98a;
-  --gl3: #b9d6ff;
-  --gl4: #dcc4ff;
-  --gold: #d9a53c;
-  color-scheme: light;
-}
-
-/* Strawberry + glitter · dark */
-:root[data-pal='glitter'].dark {
-  --bg: #1d1418;
-  --bg-elev: #261a20;
-  --bg-sunken: #2f2128;
-  --fig: #2f2128;
-  --fg: #fbeef2;
-  --fg-muted: #dcc3cb;
-  --fg-subtle: #ab919a;
-  --border: #3a2830;
-  --border-strong: #533c47;
-  --accent: #ff9cb8;
-  --accent-ink: #ffc0d1;
-  --accent-soft: #45222f;
-  --pencil: #f2a7ba;
-  --ok: #8fd1ae;
-  --ok-soft: #1f3a2d;
-  --ok-ink: #a9e2c3;
-  --alarm: #ff8a80;
-  --s2: #8fd1ae;
-  --s3: #f0b46a;
-  --t1: #3d2230;
-  --t2: #1f3a2f;
-  --t3: #3a3220;
-  --t4: #2f2640;
-  --t5: #3d2a22;
-  --now-border: #f2a7ba;
-  --halo: #f2a7ba;
-  --cs-rule: #ff9cb8;
-  --pin1: #e0a77c;
-  --pin3: #f2a7ba;
-  --gl1: #ff9cc0;
-  --gl2: #ffd77a;
-  --gl3: #9cc6ff;
-  --gl4: #cfa8ff;
-  --gold: #f0c25a;
-  color-scheme: dark;
-}
-
-/* Shared tokens, derived from each palette. */
+/* Shared tokens, derived from the scheme. */
 :root {
   --accent-fg: var(--bg-elev);
   --alarm-soft: color-mix(in srgb, var(--alarm) 14%, var(--bg-elev));
@@ -361,6 +129,16 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     scroll-padding-top: 2rem;
+  }
+
+  /* Tailwind resets buttons to the arrow cursor; anything clickable gets the hand. */
+  a[href],
+  button:not(:disabled),
+  [role='button'],
+  summary,
+  label[for],
+  select {
+    cursor: pointer;
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -669,10 +447,11 @@
   }
 
   /* ---------- Case studies on the home page ---------- */
+  /* Title on the left, the same 15rem column as the experience section. */
   .case-row {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 320px;
-    gap: 18px 36px;
+    grid-template-columns: 15rem minmax(0, 1fr);
+    gap: 18px 56px;
     padding-top: 18px;
     border-top: 3px solid var(--cs-rule, var(--fg));
   }
@@ -683,59 +462,16 @@
     gap: 22px;
   }
 
-  .case-row .fig {
-    grid-column: 2;
-    grid-row: 1 / span 3;
-    align-self: start;
-  }
-
-  .case-row:nth-child(1) .fig {
-    background: var(--t1, var(--fig));
-  }
-
-  .case-row:nth-child(2) .fig {
-    background: var(--t2, var(--fig));
-  }
-
-  .case-row:nth-child(3) .fig {
-    background: var(--t3, var(--fig));
-  }
-
-  .fig {
-    display: grid;
-    place-items: center;
-    overflow: hidden;
-    padding: 12px;
-    border-radius: 16px;
-    background: var(--fig);
-  }
-
-  .fig svg {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-
-  .fig text {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    fill: var(--fg-muted);
-  }
-
-  .fig .strong {
-    fill: var(--fg);
-    font-weight: 600;
-  }
-
-  @media (max-width: 860px) {
-    .case-row,
-    .case-row .pao {
+  @media (max-width: 1023px) {
+    .case-row {
       grid-template-columns: minmax(0, 1fr);
     }
+  }
 
-    .case-row .fig {
-      grid-column: 1;
-      grid-row: auto;
+  @media (max-width: 639px) {
+    .case-row .pao {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 16px;
     }
   }
 
@@ -810,14 +546,23 @@
       0 0 0 4px var(--bg),
       0 0 0 6px var(--halo, var(--border));
   }
+
+  /* Pink washi tape holding the hero photo print. */
+  .tape {
+    position: absolute;
+    z-index: 1;
+    top: -12px;
+    left: 50%;
+    width: 84px;
+    height: 24px;
+    translate: -50% 0;
+    rotate: 3deg;
+    background: color-mix(in srgb, var(--pencil) 75%, transparent);
+  }
 }
 
-/* ------------------------------------------------------------------ */
-/* Per-palette touches                                                 */
-/* ------------------------------------------------------------------ */
-
-/* Pastry family (Matcha & sakura, Strawberry + glitter): a piped edge on the Now card, round chips, softer corners. */
-:root:is(:not([data-pal]), [data-pal='matcha'], [data-pal='glitter']) {
+/* Pastry touches: a piped edge on the Now card, round chips, softer corners. */
+:root {
   .bnn .now {
     outline: 2px dashed var(--pencil);
     outline-offset: -9px;
@@ -833,141 +578,6 @@
   .soft-corners {
     border-radius: 24px;
   }
-}
-
-/* Rose & midnight: beaded chips in cycling colours. */
-:root[data-pal='rose'] {
-  .chip {
-    border: 0;
-    border-radius: 99px;
-    padding: 4px 11px;
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  .chip:nth-child(5n + 1) {
-    background: var(--t1);
-  }
-
-  .chip:nth-child(5n + 2) {
-    background: var(--t2);
-  }
-
-  .chip:nth-child(5n + 3) {
-    background: var(--t5);
-  }
-
-  .chip:nth-child(5n + 4) {
-    background: var(--t4);
-  }
-
-  .chip:nth-child(5n + 5) {
-    background: var(--ok-soft);
-  }
-}
-
-/* Your palette: the stronger tints keep full-ink text. */
-:root[data-pal='palette'] {
-  .fig text {
-    fill: var(--fg);
-  }
-
-  .chip {
-    border-color: transparent;
-  }
-}
-
-/* Strawberry + glitter: a shimmering iridescent underline, a rainbow line and Now card, twinkling stars. */
-:root[data-pal='glitter'] {
-  mark {
-    background-image:
-      radial-gradient(circle, #fff 0 0.7px, transparent 1.1px),
-      radial-gradient(circle, var(--gold) 0 0.7px, transparent 1.1px),
-      linear-gradient(90deg, var(--gl1), var(--gl4), var(--gl3), var(--gl2), var(--gl1));
-    background-size:
-      7px 0.2em,
-      11px 0.2em,
-      200% 0.2em;
-    background-repeat: repeat-x;
-    background-position:
-      0 100%,
-      3px 100%,
-      0 100%;
-    padding-bottom: 0.06em;
-    animation: shimmer 6s linear infinite;
-  }
-
-  h1 mark {
-    background-size:
-      7px 0.13em,
-      11px 0.13em,
-      200% 0.13em;
-  }
-
-  .case-row {
-    border-top: 0;
-    padding-top: 21px;
-    background: linear-gradient(90deg, var(--gl1), var(--gl2), var(--gl3), var(--gl4), var(--gl1)) no-repeat 0
-      0 / 100% 3px;
-  }
-
-  .bnn .now {
-    border: 2px solid transparent;
-    outline: 0;
-    background:
-      linear-gradient(var(--bg-elev), var(--bg-elev)) padding-box,
-      linear-gradient(120deg, var(--gl1), var(--gl2), var(--gl3), var(--gl4), var(--gl1)) border-box;
-  }
-
-  .portrait {
-    box-shadow:
-      0 0 0 4px var(--bg),
-      0 0 0 6px var(--gold);
-  }
-}
-
-@keyframes shimmer {
-  to {
-    background-position:
-      14px 100%,
-      -19px 100%,
-      -200% 100%;
-  }
-}
-
-.spark {
-  position: absolute;
-  z-index: 2;
-  width: var(--sz, 10px);
-  height: var(--sz, 10px);
-  pointer-events: none;
-  background: var(--c, #fff);
-  clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%);
-  animation: twinkle 2.6s ease-in-out infinite;
-  animation-delay: var(--d, 0s);
-}
-
-@keyframes twinkle {
-  0%,
-  100% {
-    transform: scale(0.35) rotate(0deg);
-    opacity: 0.35;
-  }
-  50% {
-    transform: scale(1) rotate(45deg);
-    opacity: 1;
-  }
-}
-
-.burst {
-  position: fixed;
-  z-index: 60;
-  width: 7px;
-  height: 7px;
-  pointer-events: none;
-  clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%);
 }
 
 /* Easter eggs: Gracie on About, and the paw prints (also gracie() in the console). */
@@ -1075,9 +685,5 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-  }
-
-  .spark {
-    display: none;
   }
 }

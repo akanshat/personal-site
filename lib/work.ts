@@ -13,6 +13,8 @@ export type CaseStudy = {
   problem: string;
   did: string;
   changed: string;
+  /** Kept online and linked from About, but left off the home page and the jump menu. */
+  unlisted?: boolean;
 };
 
 export const caseStudies: CaseStudy[] = [
@@ -49,6 +51,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: 'million-point-charts',
+    unlisted: true,
     title: 'Charts at a million points',
     shortTitle: 'Million-point charts',
     org: 'Phaidra',
@@ -64,10 +67,13 @@ export const caseStudies: CaseStudy[] = [
   },
 ];
 
+/** The case studies shown on the home page, in order. */
+export const featuredCaseStudies = caseStudies.filter((c) => !c.unlisted);
+
 export function getCaseStudy(slug: string) {
-  const index = caseStudies.findIndex((c) => c.slug === slug);
-  if (index === -1) throw new Error(`Unknown case study: ${slug}`);
-  const study = caseStudies[index]!;
-  const next = caseStudies[(index + 1) % caseStudies.length]!;
+  const study = caseStudies.find((c) => c.slug === slug);
+  if (!study) throw new Error(`Unknown case study: ${slug}`);
+  const index = featuredCaseStudies.indexOf(study);
+  const next = featuredCaseStudies[(index + 1) % featuredCaseStudies.length]!;
   return { study, next, index };
 }

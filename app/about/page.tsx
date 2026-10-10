@@ -40,10 +40,7 @@ export default function About() {
     <Container className="pt-6 sm:pt-10">
       <div className="grid gap-12 lg:grid-cols-[minmax(0,660px)_minmax(0,1fr)] lg:gap-14">
         <div>
-          <h1
-            data-sparkle="5"
-            className="text-[clamp(2.3rem,5vw,3.4rem)] leading-[1.06] font-bold tracking-[-0.03em] text-balance"
-          >
+          <h1 className="text-[clamp(2.3rem,5vw,3.4rem)] leading-[1.06] font-bold tracking-[-0.03em] text-balance">
             Hi, I&apos;m {site.firstName}.
           </h1>
 
@@ -87,7 +84,7 @@ export default function About() {
           <Reach className="mt-7" />
         </div>
 
-        <aside data-sparkle="4" className="mx-auto w-full max-w-[22rem] lg:mx-0 lg:pt-8">
+        <aside className="mx-auto w-full max-w-[22rem] lg:mx-0 lg:pt-8">
           <Image
             src={portrait}
             alt="Akansha Tiwari, smiling, in front of tropical plants"

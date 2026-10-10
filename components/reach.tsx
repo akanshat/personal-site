@@ -15,7 +15,6 @@ export function Reach({ className }: { className?: string }) {
         <button
           type="button"
           onClick={copy}
-          data-burst
           className="rounded-md bg-fg px-2.5 py-1 text-[0.72rem] text-bg transition-colors hover:bg-accent hover:text-accent-fg"
         >
           {copied ? 'Copied' : 'Copy'}

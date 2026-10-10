@@ -409,7 +409,6 @@ export function GroupcacheDemo() {
                 if (!playing && step === last) setStep(0);
                 setPlaying((p) => !p);
               }}
-              data-burst
               className="ml-auto inline-flex h-8 items-center gap-1.5 rounded-full bg-fg px-3 text-xs font-medium text-bg hover:bg-accent hover:text-accent-fg"
             >
               {playing ? <Pause className="size-3.5" /> : <Play className="size-3.5" />}

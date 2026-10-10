@@ -28,10 +28,7 @@ export function CaseStudyHeader({
             </span>
             All case studies
           </Link>
-          <h1
-            data-sparkle="5"
-            className="mt-8 text-[clamp(2.3rem,5vw,3.4rem)] leading-[1.06] font-bold tracking-[-0.03em] text-balance"
-          >
+          <h1 className="mt-8 text-[clamp(2.3rem,5vw,3.4rem)] leading-[1.06] font-bold tracking-[-0.03em] text-balance">
             {study.title}
           </h1>
           <Eyebrow className="mt-3">

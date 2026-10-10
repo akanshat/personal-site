@@ -2,7 +2,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import clsx from 'clsx';
 
-import { caseFigures } from '@/components/figures';
 import { FileText } from '@/components/icons';
 import { Marked } from '@/components/marked';
 import { Reach } from '@/components/reach';
@@ -10,7 +9,7 @@ import { LocalTime, StatusDot } from '@/components/status';
 import { Container, Eyebrow, Label, SectionHeading, buttonClass } from '@/components/ui';
 import portrait from '@/public/portrait-1.png';
 import { direction, education, experience, site, toolbox } from '@/lib/site';
-import { caseStudies } from '@/lib/work';
+import { featuredCaseStudies } from '@/lib/work';
 
 export default function Home() {
   return (
@@ -30,10 +29,7 @@ function Hero() {
     <Container className="grid items-center gap-12 pt-6 sm:pt-12 lg:grid-cols-[minmax(0,1fr)_17.5rem] lg:gap-16">
       <div>
         <p className="text-[1.05rem] text-muted">Hi, I&apos;m {site.firstName}.</p>
-        <h1
-          data-sparkle="7"
-          className="mt-4 text-[clamp(2.3rem,5vw,3.4rem)] leading-[1.06] font-bold tracking-[-0.03em] text-balance"
-        >
+        <h1 className="mt-4 text-[clamp(2.3rem,5vw,3.4rem)] leading-[1.06] font-bold tracking-[-0.03em] text-balance">
           I make complex systems <mark>legible</mark> to the people who run them.
         </h1>
         <p className="mt-5 max-w-[36em] text-[1.08rem] leading-relaxed text-pretty text-muted">
@@ -44,19 +40,23 @@ function Hero() {
         <Reach className="mt-7" />
       </div>
 
-      <figure data-sparkle="4" className="mx-auto w-full max-w-[17.5rem] lg:mx-0">
-        <Image
-          src={portrait}
-          alt="Akansha smiling in front of tropical plants"
-          placeholder="blur"
-          priority
-          sizes="(min-width: 1024px) 17.5rem, 70vw"
-          className="portrait aspect-[4/5] w-full rounded-[22px] object-cover"
-        />
-        <figcaption className="mt-5 font-mono text-[0.74rem] leading-relaxed text-subtle">
-          <span className="flex items-center gap-2 font-medium text-muted">
+      <figure className="mx-auto w-full max-w-[17.5rem] lg:mx-0">
+        {/* A photo print taped into the page; Open to work is written on its bottom edge. */}
+        <div className="relative -rotate-2 border border-line bg-elev p-2.5 pb-10 shadow-card transition-[rotate] duration-300 hover:rotate-0">
+          <span aria-hidden className="tape" />
+          <Image
+            src={portrait}
+            alt="Akansha smiling in front of tropical plants"
+            placeholder="blur"
+            priority
+            sizes="(min-width: 1024px) 17.5rem, 70vw"
+            className="aspect-square w-full object-cover object-[50%_35%]"
+          />
+          <span className="absolute inset-x-0 bottom-3 flex items-center justify-center gap-2 font-mono text-[0.74rem] font-medium text-muted">
             <StatusDot /> Open to work
           </span>
+        </div>
+        <figcaption className="mt-6 font-mono text-[0.74rem] leading-relaxed text-subtle">
           {site.availability}
           <br />
           {site.workMode}
@@ -73,11 +73,7 @@ function BeforeNowNext() {
     <Container className="mt-20">
       <ol className="bnn" aria-label="Before, now and next">
         {direction.map((d) => (
-          <li
-            key={d.label}
-            className={d.label.toLowerCase()}
-            data-sparkle={d.label === 'Now' ? 5 : undefined}
-          >
+          <li key={d.label} className={d.label.toLowerCase()}>
             <span className="pin" aria-hidden />
             <p className="label">
               {d.label}
@@ -111,50 +107,46 @@ function Work() {
       <Container>
         <div id="work" className="scroll-mt-8" />
         <SectionHeading title="Case studies" id="work-title">
-          Three problems I worked on, each written up in full.
+          Two problems I worked on, each written up in full.
         </SectionHeading>
 
         <div className="mt-8 grid gap-11">
-          {caseStudies.map((c) => {
-            const Figure = caseFigures[c.slug];
-            return (
-              <article key={c.slug} className="case-row">
-                <div>
-                  <Eyebrow>{c.eyebrow}</Eyebrow>
-                  <h3 className="mt-1 text-[1.4rem] leading-tight font-bold tracking-[-0.02em]">
-                    <Link href={`/work/${c.slug}`} className="hover:text-accent">
-                      {c.title}
-                    </Link>
-                  </h3>
-                </div>
-                <div className="pao">
-                  {columns.map(([heading, key], i) => (
-                    <div key={key}>
-                      <Label>{heading}</Label>
-                      <p
-                        className={clsx(
-                          'mt-1.5 text-[0.95rem] leading-relaxed text-pretty',
-                          i === 2 ? 'text-fg' : 'text-muted',
-                        )}
-                      >
-                        <Marked text={c[key]} />
-                      </p>
-                    </div>
-                  ))}
-                </div>
-                <div className="fig">{Figure && <Figure />}</div>
+          {featuredCaseStudies.map((c) => (
+            <article key={c.slug} className="case-row">
+              <div>
+                <Eyebrow>{c.eyebrow}</Eyebrow>
+                <h3 className="mt-1 text-[1.4rem] leading-tight font-bold tracking-[-0.02em]">
+                  <Link href={`/work/${c.slug}`} className="hover:text-accent">
+                    {c.title}
+                  </Link>
+                </h3>
                 <Link
                   href={`/work/${c.slug}`}
-                  className="group w-fit font-mono text-[0.8rem] font-semibold text-accent hover:text-accent-ink"
+                  className="group mt-3 inline-block font-mono text-[0.8rem] font-semibold text-accent hover:text-accent-ink"
                 >
                   Read the case study{' '}
                   <span aria-hidden className="inline-block transition-transform group-hover:translate-x-1">
                     →
                   </span>
                 </Link>
-              </article>
-            );
-          })}
+              </div>
+              <div className="pao">
+                {columns.map(([heading, key], i) => (
+                  <div key={key}>
+                    <Label>{heading}</Label>
+                    <p
+                      className={clsx(
+                        'mt-1.5 text-[0.95rem] leading-relaxed text-pretty',
+                        i === 2 ? 'text-fg' : 'text-muted',
+                      )}
+                    >
+                      <Marked text={c[key]} />
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </article>
+          ))}
         </div>
       </Container>
     </section>
@@ -292,7 +284,7 @@ function Contact() {
       <Container>
         <div id="contact" className="scroll-mt-8" />
         <div className="max-w-[660px]">
-          <h2 id="contact-title" data-sparkle="4" className="text-[1.75rem] font-bold tracking-[-0.025em]">
+          <h2 id="contact-title" className="text-[1.75rem] font-bold tracking-[-0.025em]">
             Say hello
           </h2>
           <p className="mt-2 text-muted">
