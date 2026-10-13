@@ -38,6 +38,7 @@
   --cs-rule: #55712f;
   --pin1: #a7845a;
   --pin3: #f3b3c3;
+  --now-bg: color-mix(in srgb, var(--t1) 65%, #fff);
   color-scheme: light;
 }
 
@@ -72,6 +73,7 @@
   --cs-rule: #b5d07f;
   --pin1: #d2ab7c;
   --pin3: #e79bb0;
+  --now-bg: var(--t1);
   color-scheme: dark;
 }
 

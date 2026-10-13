@@ -15,7 +15,6 @@ const nav = [
   { href: '/#work', label: 'work', match: '/work' },
   { href: '/#experience', label: 'experience' },
   { href: '/about', label: 'about', match: '/about' },
-  { href: '/playground', label: 'playground', match: '/playground' },
 ];
 
 export function SiteHeader() {

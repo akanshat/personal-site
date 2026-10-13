@@ -124,7 +124,9 @@ function Work() {
                   href={`/work/${c.slug}`}
                   className="group mt-3 inline-block font-mono text-[0.8rem] font-semibold text-accent hover:text-accent-ink"
                 >
-                  Read the case study{' '}
+                  <span className="underline decoration-[1.5px] underline-offset-[3px]">
+                    Read the case study
+                  </span>{' '}
                   <span aria-hidden className="inline-block transition-transform group-hover:translate-x-1">
                     →
                   </span>

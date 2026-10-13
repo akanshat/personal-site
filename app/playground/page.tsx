@@ -6,7 +6,7 @@ import { Container, Eyebrow } from '@/components/ui';
 export const metadata: Metadata = {
   title: 'Playground',
   description: 'Small interactive toys I built to think through a problem.',
-  alternates: { canonical: '/playground' },
+  robots: { index: false, follow: false },
 };
 
 export default function Playground() {

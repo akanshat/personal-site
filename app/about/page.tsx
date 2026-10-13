@@ -67,9 +67,8 @@ export default function About() {
               for data-centre operations, where I was <mark>the first frontend hire</mark>. I rewrote the
               portal&apos;s main chart, owned{' '}
               <Link href="/work/plant-data-mapping">an internal data-mapping tool</Link>, built versioned
-              editing on the control side, and chose the charting library for{' '}
-              <Link href="/work/million-point-charts">an AI feature</Link> whose charts hold a million points
-              per series. Along the way I wrote PRDs and test plans, reviewed API specs and took on-call
+              editing on the control side, and chose the charting library for an AI feature whose charts hold
+              a million points per series. Along the way I wrote PRDs and test plans, reviewed API specs and took on-call
               shifts.
             </p>
             <p>

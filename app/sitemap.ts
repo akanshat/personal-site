@@ -8,7 +8,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: site.url, lastModified: now, priority: 1 },
     { url: `${site.url}/about`, lastModified: now, priority: 0.7 },
-    { url: `${site.url}/playground`, lastModified: now, priority: 0.5 },
     ...caseStudies.map((c) => ({ url: `${site.url}/work/${c.slug}`, lastModified: now, priority: 0.9 })),
   ];
 }
