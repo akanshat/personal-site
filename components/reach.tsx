@@ -5,8 +5,8 @@ import clsx from 'clsx';
 import { site } from '@/lib/site';
 import { useCopy } from './status';
 
-/** The email address, shown in full with a copy button, then CV, LinkedIn and GitHub. */
-export function Reach({ className }: { className?: string }) {
+/** The email address, shown in full with a copy button, then CV (unless cv is false), LinkedIn and GitHub. */
+export function Reach({ className, cv = true }: { className?: string; cv?: boolean }) {
   const { copied, copy } = useCopy(site.email);
   return (
     <div className={clsx('flex flex-wrap items-center gap-x-5 gap-y-3 font-mono text-[0.78rem]', className)}>
@@ -23,9 +23,11 @@ export function Reach({ className }: { className?: string }) {
           {copied ? 'Email address copied' : ''}
         </span>
       </span>
-      <a href={site.cv} target="_blank" rel="noreferrer" className="link">
-        CV
-      </a>
+      {cv && (
+        <a href={site.cv} target="_blank" rel="noreferrer" className="link">
+          CV
+        </a>
+      )}
       <a href={site.links.linkedin} target="_blank" rel="noreferrer" className="link">
         LinkedIn
       </a>

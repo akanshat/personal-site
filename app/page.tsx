@@ -2,11 +2,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import clsx from 'clsx';
 
-import { FileText } from '@/components/icons';
 import { Marked } from '@/components/marked';
 import { Reach } from '@/components/reach';
 import { LocalTime, StatusDot } from '@/components/status';
-import { Container, Eyebrow, Label, SectionHeading, buttonClass } from '@/components/ui';
+import { Container, Eyebrow, Label, SectionHeading } from '@/components/ui';
 import portrait from '@/public/portrait-1.png';
 import { direction, education, experience, site, toolbox } from '@/lib/site';
 import { featuredCaseStudies } from '@/lib/work';
@@ -37,7 +36,7 @@ function Hero() {
           <mark>backend and distributed systems</mark>. I added a distributed cache to Thanos, a CNCF project,
           in Go, and spent <mark>four years at Phaidra</mark> building tools over thousands of plant sensors.
         </p>
-        <Reach className="mt-7" />
+        <Reach className="mt-7" cv={false} />
       </div>
 
       <figure className="mx-auto w-full max-w-[17.5rem] lg:mx-0">
@@ -164,10 +163,6 @@ function ExperienceSection() {
           <SectionHeading title="Where I’ve worked" id="experience-title">
             Four years of frontend on a product team, and backend work in Go on a CNCF project.
           </SectionHeading>
-          <a href={site.cv} target="_blank" rel="noreferrer" className={buttonClass('secondary', 'mt-5')}>
-            <FileText className="size-4" />
-            Download CV
-          </a>
         </div>
 
         <ol className="grid gap-4">
