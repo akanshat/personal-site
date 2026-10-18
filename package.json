@@ -30,7 +30,7 @@
     "@types/react-dom": "^19.0.0",
     "eslint": "^9",
     "eslint-config-next": "^16.3.6",
-    "postcss": "^8.5.0",
+    "postcss": "^8.5.30",
     "prettier": "^3.0.0",
     "prettier-plugin-tailwindcss": "^0.7.0",
     "tailwindcss": "^4.3.3",
